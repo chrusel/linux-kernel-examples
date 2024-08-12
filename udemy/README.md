@@ -1,5 +1,5 @@
 # Udemy
-Chrusel's personal git repository to the character-device-drivers-in-deep udemy course.
+Chrusel's personal git repository to the character-device-drivers-in-deep udemy course. Linux Kernel 6.5.y.
 
 # 1. Introduction
 Information about all the devic-files and its numbers are listed in `/proc/devices`
@@ -35,7 +35,7 @@ Dynamic device number allocation: [dynamic_allocation_devnbr.c](section-1/3-dyna
         $ sudo mknod -m 644 /dev/chruseldev c 244 10
         $ ls -l /dev/chruseldev
 ### 1.4.2 Automatic
-class_create: is defined in file `linux/device.h`. Udev will take notice at creating or destroying such a class. [create_device_class.c](section-1/4-create_device_class/create_device_class.c)
+The function `class_create()`/`class_destroy()` are defined in file `linux/device.h`. Udev will take notice at creating or destroying such a class. See listiong [create_device_class.c](section-1/4-create_device_class/create_device_class.c) for example.
 
 
         struct class *class_create(const char* name); // API changed since udemy course recording
@@ -46,7 +46,7 @@ class_create: is defined in file `linux/device.h`. Udev will take notice at crea
 
         void class_destroy(struct class *cls);
 
-device_create: is defined in file `linux/device.h`: [create_device_file.c](section-1/5-create_device_file/create_device_file.c)
+The function `device_create()`/`device_destroy()` are defined in file `linux/device.h`. See listing [create_device_file.c](section-1/5-create_device_file/create_device_file.c) for example.
 
         struct device *device_create(struct class *class,
                                      struct device *parent,
