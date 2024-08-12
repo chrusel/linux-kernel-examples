@@ -35,16 +35,27 @@ Dynamic device number allocation: [dynamic_allocation_devnbr.c](section-1/3-dyna
         $ sudo mknod -m 644 /dev/chruseldev c 244 10
         $ ls -l /dev/chruseldev
 ### 1.4.2 Automatic
-class_create is defined in file `linux/device.h`:
+class_create: is defined in file `linux/device.h`. Udev will take notice at creating or destroying such a class. [create_device_class.c](section-1/4-create_device_class/create_device_class.c)
+
 
         struct class *class_create(const char* name); // API changed since udemy course recording
 
-        owner: pointer to the module that is to own
         name: pointer to a string for the name of this class
 
-        --> will create the file /sys/class/<name>
+        --> will create the directory /sys/class/<name>/
 
         void class_destroy(struct class *cls);
+
+device_create: is defined in file `linux/device.h`: [create_device_file.c](section-1/5-create_device_file/create_device_file.c)
+
+        struct device *device_create(struct class *class,
+                                     struct device *parent,
+                                     dev_t devt,
+                                     void *drv_data,
+                                     const char *fmt,
+                                     ...);
+
+        void device_destroy(struct class *class, dev_t devt);                         
 
 # 2. File Operations
 # 3. IOCTL
