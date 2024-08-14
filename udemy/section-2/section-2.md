@@ -31,5 +31,26 @@ The cdev funtions are:
 
 Difference between `cdev_init(struct cdev*, const struct file_operations*)` and `cdev_alloc(void)`: The cdev_alloc() allocates memory in kernel space, use the cdev_init() when a cdev struct is already allocated.
 
+Steps to create a character driver:
+
+1. Allocate a device number dynamically oder statically (dev-t)
+2. Initializing the character device with its file operations (struct cdev, struct file_operations)
+3. Registering the character device with the Linux Kernel (cdev_add)
+
 ## 2.1 Register File operations
 See example of character device registration in listing [register-fops.c](1-register-fops/register-fops.c).
+
+    $ sudo insmod register-fops.ko
+    $ sudo chmod 666 /dev/chruseldev
+
+Perform a write operation to the character device:
+
+    $ echo "foobar" > /dev/chruseldev
+    $ sudo dmesg
+
+Perform a read operation from the character device:
+
+    $ cat /dev/chruseldev
+    $ sudo dmesg
+
+    $ sudo rmmod register-fops
