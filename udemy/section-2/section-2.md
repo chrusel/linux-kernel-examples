@@ -38,7 +38,8 @@ Steps to create a character driver:
 3. Registering the character device with the Linux Kernel (cdev_add)
 
 ## 2.1 Register File operations
-See example of character device registration in listing [register-fops.c](1-register-fops/register-fops.c).
+See example of character device registration with `cdev_alloc()` in listing [register-fops.c](1-register-fops-cdev_alloc/register-fops.c).
+See the almost same example of character device registration with `cdev_init()` in listing [register-fops.c](2-register-fops-cdev_init/register-fops.c).
 
     $ sudo insmod register-fops.ko
     $ sudo chmod 666 /dev/chruseldev
