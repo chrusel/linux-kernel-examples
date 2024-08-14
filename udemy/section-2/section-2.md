@@ -55,3 +55,14 @@ Perform a read operation from the character device:
     $ sudo dmesg
 
     $ sudo rmmod register-fops
+
+## 2.2 Pseudo devices
+Devices in Linux that do not correspond to a physical device are so calles Pseudo devices. For example:
+
+`/dev/urandom`: generates a stream of pseudo-random numbers (`$ hexdump /dev/urandom`)
+
+`/dev/null`: accepts and discards any input
+
+`/dev/zero`: generates a stream of \0 characters (`$ dd if=/dev/zero of=1M.txt bs=1M count=1`)
+
+The file drivers/char/mem.c contains the implementation of this devices.
