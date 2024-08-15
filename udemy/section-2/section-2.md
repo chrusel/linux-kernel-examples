@@ -66,3 +66,35 @@ Devices in Linux that do not correspond to a physical device are so calles Pseud
 `/dev/zero`: generates a stream of \0 characters (`$ dd if=/dev/zero of=1M.txt bs=1M count=1`)
 
 The file drivers/char/mem.c contains the implementation of this devices.
+
+## 2.3 struct file
+Is defined in `linux/fs.h` and represents an open file in Kernel space. A file object is created on file open() and will be passed to any function that operates on the file, until the last close. When the counter is zero, the kernel will release the data structure.
+A disk file on the other hand is represented by `struct inode`.
+
+        struct file {
+            // represents w and/or r
+            fmode_t f_mode;
+
+            // the current read or write position
+            loff_t f_pos;
+
+            // file flags such as O_RDONLY, O_NONBLOCK, O_SYNC...
+            unsigned int	f_flags;
+
+            // the operations associated with the file
+            struct file_operations	*f_op;
+
+            // The open system call sets this field to NULL before open is called from the driver.
+            // The driver can use this field, but must free memory on release.
+            // private_data is a useful resource for preserving state info across system calls
+            void *private_data;
+        }
+
+See listing [struct_file.c](3-struct-file/struct-file.c).
+
+      # insmod struct-file.ko
+      # chmod 666 /dev/chruseldev
+
+      $ ./userapp
+
+## 2.3 struct inode
