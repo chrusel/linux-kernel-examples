@@ -98,3 +98,34 @@ See listing [struct_file.c](3-struct-file/struct-file.c).
       $ ./userapp
 
 ## 2.3 struct inode
+The sruct inode is used by the kernel internally to represent files. An inode uniquely identifies a file in a file system.
+
+        struct inode {
+            // mode
+            umode_t i_mode;
+
+            kuid_t i_uid;
+            kgid_t i_gid;
+
+            // inode number
+            unsigned long i_mode_ino;
+
+            // contains the device_number
+            dev_t i_rdev;
+
+            // Kernel representation of char device
+            struct cdev *i_mode_cdev;
+        }
+
+Two functions can be used to obtain major and minor numbers from an inode:
+
+        iminor(inode)
+        unsigned int iminor(struct inode *inode);
+
+        imajor(inode)
+        unsigned int imajor(struct inode *inode);
+
+See listing [struct_inode.c](4-struct-inode/struct-inode.c). You can read out the inode with the stat tool:
+
+        stat /dev/chruseldev
+

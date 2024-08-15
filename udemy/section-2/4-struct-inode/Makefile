@@ -1,4 +1,4 @@
-obj-m += struct-file.o
+obj-m += struct-inode.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
