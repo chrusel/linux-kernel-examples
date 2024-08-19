@@ -137,9 +137,11 @@ Proper access to user-space data is done by calloing the macros / functions belo
 
         #include <linux/uaccess.h>
 
+        // transfer data of integrated datatypes
         put_user(type val, type *address);
         get_user(type val, type *address);
 
+        // transfer data of structured datatypes
         unsigned long copy_to_user(void __user *to, const void *from, unsigned long n);
         unsigned long copy_from_user(void *to, const void __user *from, unsigned long n);
 
@@ -164,4 +166,13 @@ The `copy_to_user(...)` function copies a block of data from the kernel into use
 See listing [copy_to_user.c](7-user-buffer_copy_to_user/copy_to_user.c) for an example.
 
 ### 2.4.3 put_user
+To read a simple variable from user space, you can use the `get_user(...)` function. This function is used for simple types such as char and int, but larger data types like structures must use the `copy_from_user()` function.
+
+See listing [put_user.c](8-user-buffer_put_user/put_user.c) for an example dealing with jiffies.
+
+The workstation where the binary was executed increments 1000 jiffies each second. That means, that the timer is configured to generate 1000 interrupts every second.
+You can use `put_user()` to copy the value of jiffies to user space. `put_user()` is faster than `copy_to_user()`, and can copy up to 8 bytes of data.
+The size that `put_user()` copies depends on the type of the pointer argument and is determined at compile time using `typeof()` and `sizeof()` builtins.
+
 ### 2.4.4 get_user
+
