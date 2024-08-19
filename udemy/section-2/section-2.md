@@ -119,7 +119,8 @@ The sruct inode is used by the kernel internally to represent files. An inode un
 
 Two functions can be used to obtain major and minor numbers from an inode:
 
-        iminor(inode)
+        iminor(inode)(base) g041840@bw049141-lnx:~/gitrepos/linux-kernel-examples/udemy/section-2$ git commit -s -m "copy_to_user.c: add example kernel driver"
+
         unsigned int iminor(struct inode *inode);
 
         imajor(inode)
@@ -154,5 +155,13 @@ The `copy_from_user(...)` function copies a block of data from user space into a
 See listing [copy_from_user.c](6-user-buffer_copy_from_user/copy_from_user.c) for an example.
 
 ### 2.4.2 copy_to_user
+The `copy_to_user(...)` function copies a block of data from the kernel into user space and desires:
+
+  - to: pointer to a user space buffer
+  - from: a pointer to a kernel buffer and
+  - n: a length defined in bytes
+
+See listing [copy_to_user.c](7-user-buffer_copy_to_user/copy_to_user.c) for an example.
+
 ### 2.4.3 put_user
 ### 2.4.4 get_user
