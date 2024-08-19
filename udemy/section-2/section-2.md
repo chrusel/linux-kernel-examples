@@ -171,10 +171,19 @@ The workstation where the binary was executed increments 1000 jiffies each secon
 You can use `put_user()` to copy the value of jiffies to user space. `put_user()` is faster than `copy_to_user()`, and can copy up to 8 bytes of data.
 The size that `put_user()` copies depends on the type of the pointer argument and is determined at compile time using `typeof()` and `sizeof()` builtins.
 
-See listing of a character driver which on read returns the value of `jiffies` [put_user.c](8-user-buffer_put_user/put_user.c).
+See listing of a character driver (`/dev/myjifies`) which on read returns the value of `jiffies` [put_user.c](8-user-buffer_put_user/put_user.c).
 
         $ sudo insmod put_user.ko
         $ sudo chmod 666 /dev/myjiffies
 
-### 2.4.4 get_user
+        $ userapp
 
+### 2.4.4 get_user
+To read a simple variable from user space, you can use the `get_user(...)` function. This function is used for simple types such as char and int, but larger data types like structures must use the `copy_from_user()` function.
+
+        $ sudo insmod get_user.ko
+        $ sudo chmod 666 /dev/myint
+
+        $ userapp
+
+See listing of a character driver (`/dev/myint`) which on stores an int value  on write [get_user.c](9-user-buffer_get_user/get_user.c).
