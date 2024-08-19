@@ -129,3 +129,22 @@ See listing [struct_inode.c](4-struct-inode/struct-inode.c). You can read out th
 
         stat /dev/chruseldev
 
+## 2.4 Accessing Userspace buffer
+When you try to access a userspace buffer from kernel space (malfunction [user-buffer.c](5-user-buffer-malfunction/user-buffer.c)) the kernel will most probably seg fault (page domain fault).
+
+Proper access to user-space data is done by calloing the macros / functions below:
+
+        #include <linux/uaccess.h>
+
+        put_user(type val, type *address);
+        get_user(type val, type *address);
+
+        unsigned long copy_to_user(void __user *to, const void *from, unsigned long n);
+        unsigned long copy_from_user(void *to, const void __user *from, unsigned long n);
+
+All macros / functions return 0 in case of success and something else on error.
+
+### 2.4.1 copy_from_user
+### 2.4.2 copy_to_user
+### 2.4.3 put_user
+### 2.4.4 get_user
