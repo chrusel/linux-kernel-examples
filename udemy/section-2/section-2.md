@@ -145,6 +145,14 @@ Proper access to user-space data is done by calloing the macros / functions belo
 All macros / functions return 0 in case of success and something else on error.
 
 ### 2.4.1 copy_from_user
+The `copy_from_user(...)` function copies a block of data from user space into a kernel buffer and desires:
+
+  - to: destination buffer (in kernel space)
+  - from: a source buffer (from user space), and
+  - n: a length defined in bytes
+
+See listing [copy_from_user.c](6-user-buffer_copy_from_user/copy_from_user.c) for an example.
+
 ### 2.4.2 copy_to_user
 ### 2.4.3 put_user
 ### 2.4.4 get_user
