@@ -184,6 +184,5 @@ To read a simple variable from user space, you can use the `get_user(...)` funct
         $ sudo insmod get_user.ko
         $ sudo chmod 666 /dev/myint
 
-        $ userapp
-
-See listing of a character driver (`/dev/myint`) which on stores an int value  on write [get_user.c](9-user-buffer_get_user/get_user.c).
+### 2.4.5 copy user struct
+See listing of a character driver (`/dev/mystruct`) which on stores an int value  on write [copy_user.c](10-copy_user/copy_user.c).
